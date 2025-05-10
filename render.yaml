@@ -1,7 +1,12 @@
 services:
   - type: web
-    name: plato-web
+    name: plato-auto
     env: python
-    buildCommand: bash render-build.sh && pip install -r requirements.txt
-    startCommand: gunicorn app:app
+    buildCommand: bash render-build.sh
+    startCommand: python app.py
     plan: free
+    envVars:
+      - key: TEST_USER_ID
+        value: your_id
+      - key: TEST_USER_PW
+        value: your_password
