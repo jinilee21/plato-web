@@ -1,12 +1,16 @@
 services:
-  - type: web
+  - type: worker
     name: plato-auto
     env: python
-    buildCommand: bash render-build.sh
-    startCommand: python app.py
     plan: free
+    buildCommand: bash render-build.sh
+    startCommand: python cron.py
     envVars:
       - key: TEST_USER_ID
-        value: your_id
+        value: your_id_here
       - key: TEST_USER_PW
-        value: your_password
+        value: your_pw_here
+    schedules:
+      - name: daily-13-00
+        cron: "0 4 * * *"
+        command: "python cron.py"
